@@ -12,9 +12,13 @@ class MerchantRepository
 
   def load_data(data)
     contents = CSV.open data, headers: true, header_converters: :symbol
+    # contents.to_a
+    # binding.pry
+
     contents.each do |row|
-      store_name_hash = {:store_name => row[:name]}
+      # store_name_hash = {:store_name => row[:name]}
       all << Merchant.new({:store_name => row[:name]}, {:store_id => row[:id]})
+      binding.pry
     end
   end
 
@@ -23,6 +27,7 @@ class MerchantRepository
   end
 
   def find_by_name(store_name)
+    binding.pry
     all.find {|name| name.merchant_name == store_name.gsub(" ", "") }
   end
 

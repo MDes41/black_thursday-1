@@ -1,4 +1,3 @@
-# require $LOAD_PATH.unshift(File.expand_path("./test_helper.rb",__dir__))
 require_relative './../lib/merchant_repository'
 require_relative './test_helper'
 require 'pry'
@@ -66,7 +65,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr       = MerchantRepository.new
     mr.load_data("merchant_sample.csv")
     merchant = mr.find_by_name("mInIaTuRebIKez")
-    
+
     assert_equal "MiniatureBikez", merchant.merchant_name
   end
 
