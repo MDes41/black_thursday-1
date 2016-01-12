@@ -1,10 +1,10 @@
 require 'pry'
 
 class Merchant
-  attr_accessor :name, :id
+  attr_reader :merchant_name, :merchant_id
 
-  def initialize(hash_name, hash_id)
-    @name = hash_name[:name].gsub(" ","")
-    @id   = hash_id[:id]
+  def initialize(name, id = nil)
+    @merchant_name = name[:store_name]
+    @merchant_id   = id[:id]
   end
 end

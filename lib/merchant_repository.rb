@@ -8,14 +8,15 @@ class MerchantRepository
     []
   end
 
-  def load_data
-    contents = CSV.open "merchant_sample.csv", headers: true, header_converters: :symbol
+  def load_data(data)
+    contents = CSV.open data, headers: true, header_converters: :symbol
     contents.each do |row|
-      
+      all << Merchant.new({:store_name => row[:name]})
     end
   end
 
-  def find_by_id
+  def find_by_id(store_name)
+    all.find {|name| name.merchant_name == store_name.gsub(" ", "") }
   end
 
   def find_by_name

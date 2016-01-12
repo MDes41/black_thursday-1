@@ -37,4 +37,12 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_kind_of(Array, mr.all)
   end
+
+  def test_that_find_by_name_method_finds_a_merchant_name_from_csv_file
+    mr       = MerchantRepository.new
+    mr.load_data("merchant_sample.csv")
+    merchant = mr.find_by_name("Miniature Bikez")
+
+    assert_equal Merchant, merchant.class
+  end
 end
