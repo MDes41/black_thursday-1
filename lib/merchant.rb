@@ -5,6 +5,6 @@ class Merchant
 
   def initialize(name, id = nil)
     @merchant_name = name[:store_name]
-    @merchant_id   = id[:id]
+    @merchant_id   = id[:store_id]
   end
 end
