@@ -31,5 +31,11 @@ class MerchantTest < Minitest::Test
     assert_equal 12334105, m.id
   end
 
+  def test_that_id_will_return_the_id_hash_value
+    m = Merchant.new({:name => 'Shop in 1901'}, {:id => 12334105})
+
+    assert_equal 12334105, m.id
+  end
+
 
 end

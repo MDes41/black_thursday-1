@@ -7,8 +7,4 @@ class Merchant
     @name = hash_name[:name].gsub(" ","")
     @id   = hash_id[:id]
   end
-
-
-
-
 end
