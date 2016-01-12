@@ -1,7 +1,7 @@
 class MerchantRepository
 
   def all
-
+    []
   end
 
   def find_by_id
@@ -17,7 +17,7 @@ class MerchantRepository
   end
 
   def load_data
-    
+
   end
 
 
