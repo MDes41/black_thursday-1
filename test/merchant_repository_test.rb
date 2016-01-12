@@ -38,11 +38,44 @@ class MerchantRepositoryTest < Minitest::Test
     assert_kind_of(Array, mr.all)
   end
 
-  def test_that_find_by_name_method_finds_a_merchant_name_from_csv_file
+  def test_that_find_by_name_method_is_an_instance_of_merchant
+    mr       = MerchantRepository.new
+    mr.load_data("merchant_sample.csv")
+    merchant = mr.find_by_name("MiniatureBikez")
+
+    assert_equal Merchant, merchant.class
+  end
+
+  def test_that_find_by_name_returns_a_known_merchant_name
+    mr       = MerchantRepository.new
+    mr.load_data("merchant_sample.csv")
+    merchant = mr.find_by_name("MiniatureBikez")
+    assert_equal "MiniatureBikez", merchant.merchant_name
+  end
+
+  def test_edge_that_find_by_name_works_when_spaces_are_included
     mr       = MerchantRepository.new
     mr.load_data("merchant_sample.csv")
     merchant = mr.find_by_name("Miniature Bikez")
 
-    assert_equal Merchant, merchant.class
+    assert_equal "MiniatureBikez", merchant.merchant_name
   end
+
+  def test_edge_that_find_by_name_works_when_not_case_sensitive
+    skip
+    mr       = MerchantRepository.new
+    mr.load_data("merchant_sample.csv")
+    merchant = mr.find_by_name("mInIaTuRebIKez")
+    
+    assert_equal "MiniatureBikez", merchant.merchant_name
+  end
+
+  def test_that_find_by_name_returns_nil_for_unknown_merchant_name
+    mr       = MerchantRepository.new
+    mr.load_data("merchant_sample.csv")
+    merchant = mr.find_by_name("Turing School")
+
+    assert_equal nil, merchant
+  end
+
 end
