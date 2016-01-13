@@ -17,12 +17,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_by_id_method_exist
-    skip
     assert ItemRepository.method_defined? :find_by_id
   end
 
   def test_that_find_by_name_method_exist
-    skip
     assert ItemRepository.method_defined? :find_by_name
   end
 
@@ -72,20 +70,18 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_it_will_return_an_instance_of_an_item
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
 
     ir   = se.items
-    item = ir.find_by_name("Item Repellat Dolorum")
+    item = ir.find_by_name("510+ RealPush Icon Set")
 
     assert_equal Item, item.class
   end
 
   def test_that_find_by_id_returns_known_item
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -104,7 +100,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -122,7 +117,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_edge_that_find_by_id_returns_nil_for_unknown_id
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -141,7 +135,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_a_known_item
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -159,7 +152,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_nil_for_unknown_item
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -177,7 +169,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_edge_that_no_matter_where_spaces_are_placed_find_by_name_returns_known_item
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -195,7 +186,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_edge_that_find_by_name_will_find_capitalized_known_item_name
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -213,7 +203,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_edge_that_find_by_name_will_find_known_item_typed_with_lowercase_and_upcase_letters
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"

@@ -1,6 +1,8 @@
 require_relative 'merchant'
 require          'csv'
 require          'pry'
+require_relative 'sales_engine'
+
 class MerchantRepository
 
   attr_reader :all, :data
@@ -42,3 +44,13 @@ class MerchantRepository
     end
   end
 end
+
+# se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+
+se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+})
+
+mr = se.merchants
+merchant = mr.find_by_name("CJsDecor")
