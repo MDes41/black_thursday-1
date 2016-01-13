@@ -2,20 +2,17 @@ require_relative 'merchant'
 require          'csv'
 require          'pry'
 require_relative 'sales_engine'
+require_relative 'load_data'
 
 class MerchantRepository
 
   attr_reader :all, :data
+  include LoadData
 
   def initialize(data)
     @data = data
     @all = []
-    load_data
-  end
-
-  def load_data
-    contents = CSV.open data, headers: true, header_converters: :symbol
-    @all = contents.to_a.map {|row| row.to_hash}
+    load_data(data)
   end
 
   def find_by_id(merchant_id_inputed)

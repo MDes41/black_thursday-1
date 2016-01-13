@@ -2,19 +2,16 @@ require          'csv'
 require          'pry'
 require_relative 'sales_engine'
 require_relative 'item'
+require_relative 'load_data'
 
 class ItemRepository
   attr_reader :all, :data
+  include LoadData
 
   def initialize(data)
     @data = data
     @all = []
-    load_data
-  end
-
-  def load_data
-    contents = CSV.open data, headers: true, header_converters: :symbol
-    @all = contents.to_a.map {|row| row.to_hash}
+    load_data(data)
   end
 
   def standardize(item_name_inputed)
@@ -42,5 +39,5 @@ class ItemRepository
   #
   # end
 
-  def find_all
+  # def find_all
 end
