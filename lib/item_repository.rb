@@ -42,5 +42,17 @@ class ItemRepository
   #
   # end
 
+
+  #notes for find_all_by_price_in_range
+  #within the argument for our tests have the range like this
+  #ex: (700..900) => which will be a range object check methods on ruby docs
+  #use the method include? to check through given range!
+  #call the method .to_i to the BigDecimal objects to compare the classes
+  #range is a collection of integers that need BigDecimal to turn to one in order
+  #to compare it with each other
+
+  
+
   def find_all
+  end
 end

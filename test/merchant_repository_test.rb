@@ -37,7 +37,7 @@ class MerchantRepositoryTest < Minitest::Test
                               :merchants => "./data/merchant_sample.csv",
                               })
     mr = se.merchants
-
+    binding.pry
     assert_kind_of(Array, mr.all)
   end
 
