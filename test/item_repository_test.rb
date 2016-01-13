@@ -348,7 +348,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Array, price.class
   end
 
-  def test_that_find_all_by_price_in_range_returns_
+  def test_that_find_all_by_price_in_range_returns_items_within_inputted_price_range
     skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -361,5 +361,56 @@ class ItemRepositoryTest < Minitest::Test
     #we will need to require the BigDecimal class from Item
     assert_equal ["items with prices from $10 through $15 will pop in here"], price
   end
+
+  def test_that_find_all_by_price_in_range_returns_empty_array_for_unknown_price_range
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    #reread readme to figure this out
+    num   = (1..2)
+    price = ir.find_all_by_price_in_range(num)
+    #we will need to require the BigDecimal class from Item
+    assert_equal [], price
+  end
+
+  def test_that_find_all_by_merchant_id_is_an_array
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    price = ir.find_all_by_merchant_id(263395)
+    #given the supplied fragment of an id it should output matches
+    assert_equal Array, price.class
+  end
+
+  def test_that_find_all_by_merchant_id_returns_id_matches
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    price = ir.find_all_by_merchant_id(263395)
+    #given the supplied fragment of an id it should output matches
+    assert_equal ["here a couple of id matches will pop up"], price
+  end
+
+  def test_that_find_all_by_merchant_id_returns_empty_array_when_no_matches_are_found
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    price = ir.find_all_by_merchant_id(000000)
+    #given the supplied fragment of an id it should output matches
+    assert_equal [], price
+  end
+
 
 end
