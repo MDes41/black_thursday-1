@@ -46,6 +46,44 @@ class ItemRepositoryTest < Minitest::Test
     assert ItemRepository.method_defined? :find_all_by_merchant_id
   end
 
+  def test_that_the_all_method_returns_an_array
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir   = se.items
+
+    assert_kind_of(Array, ir.all)
+  end
+
+  def test_that_array_has_all_elements_from_item_csv_file
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir   = se.items
+
+    assert_equal 0, ir.all.count
+  end
+
+  
+
+  def test_that_it_will_return_an_instance_of_an_item
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir   = se.items
+    item = ir.find_by_name("Item Repellat Dolorum")
+
+    assert_equal Item, item.class
+  end
+
 
 
 end
