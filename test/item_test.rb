@@ -52,7 +52,7 @@ class ItemTest < Minitest::Test
       :updated_at  => Time.now,
     })
 
-
+    assert_equal 263395237, i.id
   end
 end
 
