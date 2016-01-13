@@ -334,4 +334,32 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], price
   end
 
+  def test_that_find_all_by_price_in_range_is_an_array
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    num   = (1..10)
+    #reread readme to figure this out
+    price = ir.find_all_by_price_in_range(num)
+    #we will need to require the BigDecimal class from Item
+    assert_equal Array, price.class
+  end
+
+  def test_that_find_all_by_price_in_range_returns_
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    #reread readme to figure this out
+    num   = (10..15)
+    price = ir.find_all_by_price_in_range(num)
+    #we will need to require the BigDecimal class from Item
+    assert_equal ["items with prices from $10 through $15 will pop in here"], price
+  end
+
 end
