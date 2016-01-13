@@ -271,6 +271,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_for_find_all_with_description_method
     skip
+    #case insensitive test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -283,15 +284,54 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_with_spaces_for_find_all_with_description_method
+    #case insensitive test
     skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
-
     ir          = se.items
     description = ir.find_all_with_description("AcrY lique s Ur to Ile ex écuTée")
     #this should return a couple matches, so run the test to see the real answer
     assert_equal ["a"], description
   end
+
+  def test_that_find_all_by_price_is_an_array
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    price = ir.find_all_by_price(10.99)
+    #we will need to require the BigDecimal class from Item
+    assert_equal Array, price.class
+  end
+
+  def test_that_find_all_by_price_returns_value
+    skip
+    #im not too sure how this will work with the BigDecimal so be cautious
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    price = ir.find_all_by_price(10.99)
+
+    assert_equal 10.99, price.unit_price
+  end
+
+  def test_that_find_all_by_price_returns_empty_array_for_absurd_price
+    skip
+    #im not too sure how this will work with the BigDecimal so be cautious
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    ir    = se.items
+    price = ir.find_all_by_price(12345678.99)
+
+    assert_equal [], price
+  end
+
 end
