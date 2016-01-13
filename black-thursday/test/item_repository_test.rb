@@ -1,4 +1,4 @@
-require_relative './../lib/item_repository'
+require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
 require_relative './test_helper'
 require 'pry'
@@ -220,7 +220,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_with_description_is_an_array
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -233,7 +232,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_with_description_returns_empty_array_when_it_matches_no_description
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -246,17 +244,37 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
 
-    ir          = se.items
-    description = ir.find_all_with_description("Acrylique sur toile exécutée")
-    #this should return a couple matches, so run the test to see the real answer
-    assert_equal ["a"], description
+    ir    = se.items
+    items = ir.find_all_with_description("Acrylique sur toile exécutée")
+
+    result = "Acrylique sur toile exécutée en 2011\nFormat : 46 x 55 cm\nToile sur châssis en bois - non encadré\nArtiste : Flavien Couche - Artiste côté Akoun\n\nTABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE\n\nwww.flavien-couche.com"
+
+    assert_equal result, items[0].description
+    assert_equal   Item, items.last.class
+    assert_equal     19, items.count
   end
+
+  def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method_v2
+    skip 'This is where we want to be'
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
+
+    assert_equal [1, 2], ir.find_all_with_description("a").map(&:id)
+    assert_equal [1, 3], ir.find_all_with_description("b").map(&:id)
+    assert_equal [2, 3], ir.find_all_with_description("1").map(&:id)
+  end
+
+
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_for_find_all_with_description_method
     skip
