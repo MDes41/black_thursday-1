@@ -6,4 +6,6 @@ module LoadData
     @all = contents.to_a.map {|row| row.to_hash}
   end
 
+
+
 end
