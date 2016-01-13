@@ -47,7 +47,7 @@ class MerchantRepositoryTest < Minitest::Test
                               })
     mr = se.merchants
 
-    assert_equal 3, mr.all.count
+    assert_equal 6, mr.all.count
   end
 
   def test_that_find_by_name_method_is_an_instance_of_merchant
@@ -62,8 +62,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_name_returns_a_known_merchant_name
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr       = se.merchants
     merchant = mr.find_by_name("MiniatureBikez")
@@ -73,8 +72,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_works_when_spaces_are_included
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr       = se.merchants
     merchant = mr.find_by_name("Miniature B i kez")
@@ -84,8 +82,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_works_when_not_case_sensitive
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr       = se.merchants
     merchant = mr.find_by_name("mInIaTuRebIKez")
@@ -95,8 +92,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_returns_nil_for_unknown_merchant_name
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr       = se.merchants
     merchant = mr.find_by_name("Turing School")
@@ -106,8 +102,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_returns_known_id
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr = se.merchants
     merchant = mr.find_by_id(12334105)
@@ -117,8 +112,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_returns_nil_for_unknown_id
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr = se.merchants
     merchant = mr.find_by_id(000023412)
@@ -128,8 +122,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_with_input_as_a_string_works
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr = se.merchants
     merchant = mr.find_by_id("12334105")
@@ -139,13 +132,32 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_even_when_searching_for_correct_id_with_spaces_it_will_still_return
     se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv"
+                              :merchants => "./data/merchant_sample.csv",
                               })
     mr = se.merchants
     merchant = mr.find_by_id("12334 105")
 
     assert_equal "12334105", merchant.id
+  end
+
+  def test_that_find_all_by_name_returns_known_merchant_with_fragment_input
+    se = SalesEngine.from_csv({
+                              :merchants => "./data/merchant_sample.csv",
+                              })
+    mr       = se.merchants
+    merchant = mr.find_all_by_name("Mini")
+
+    assert_equal ["MiniatureBikez","Shopinmini", "heyMiniWheels", "MiniatureTights"], merchant
+  end
+
+  def test_that_find_all_by_name_returns_nil_for_unknown_merchant_with_fragment_input
+    se = SalesEngine.from_csv({
+                              :merchants => "./data/merchant_sample.csv",
+                              })
+    mr       = se.merchants
+    merchant = mr.find_all_by_name("turing")
+
+    assert_equal [], merchant
   end
 
 end

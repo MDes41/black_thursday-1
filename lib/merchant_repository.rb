@@ -30,7 +30,15 @@ class MerchantRepository
     merchant
   end
 
-  def find_all_by_name
-    
+  def find_all_by_name(merchant_name_inputed)
+    standard_merchant_name = merchant_name_inputed.downcase.gsub(" ", "")
+    merchant_info = @all.find_all do |line|
+      line[:name].downcase.include?(standard_merchant_name)
+    end
+    if merchant_info.nil?
+      []
+    else
+      merchant_info.map {|merchant_info| Merchant.new(merchant_info).name}
+    end
   end
 end
