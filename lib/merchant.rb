@@ -1,10 +1,10 @@
 require 'pry'
 
 class Merchant
-  attr_reader :merchant_name, :merchant_id
+  attr_reader :name, :id
 
-  def initialize(name, id)
-    @merchant_name = name[:store_name]
-    @merchant_id   = id[:store_id]
+  def initialize(merchant_info)
+    @name = merchant_info[:name]
+    @id = merchant_info[:id]
   end
 end
