@@ -229,4 +229,69 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal "510+ RealPush Icon Set", item.name
   end
+
+  def test_that_find_all_with_description_is_an_array
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir          = se.items
+    description = ir.find_all_with_description("You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.")
+
+    assert_equal Array, description.class
+  end
+
+  def test_that_find_all_with_description_returns_empty_array_when_it_matches_no_description
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir          = se.items
+    description = ir.find_all_with_description("I hate how this csv file looks on atom...")
+
+    assert_equal [], description
+  end
+
+  def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir          = se.items
+    description = ir.find_all_with_description("Acrylique sur toile exécutée")
+    #this should return a couple matches, so run the test to see the real answer
+    assert_equal ["a"], description
+  end
+
+  def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_for_find_all_with_description_method
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir          = se.items
+    description = ir.find_all_with_description("AcrYlique sUr toIle exécuTée")
+    #this should return a couple matches, so run the test to see the real answer
+    assert_equal ["a"], description
+  end
+
+  def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_with_spaces_for_find_all_with_description_method
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir          = se.items
+    description = ir.find_all_with_description("AcrY lique s Ur to Ile ex écuTée")
+    #this should return a couple matches, so run the test to see the real answer
+    assert_equal ["a"], description
+  end
 end
