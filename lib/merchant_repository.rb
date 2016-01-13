@@ -1,4 +1,3 @@
-# require_relative './../data/sample/merchant_sample'
 require_relative 'merchant'
 require          'csv'
 require          'pry'
@@ -17,26 +16,21 @@ class MerchantRepository
     @all = contents.to_a.map {|row| row.to_hash}
   end
 
-  def find_by_id
-
+  def find_by_id(merchant_id_inputed)
+    standard_merchant_id =  merchant_id_inputed.to_s.gsub(" ", "")
+    merchant_info = @all.find {|line| line[:id]  == standard_merchant_id}
+    merchant_info.nil? ? merchant = nil : merchant = Merchant.new(merchant_info)
+    merchant
   end
 
-  def find_by_name(store_name)
-    standard_store_name = store_name.downcase.gsub(" ", "")
-    merchant_info = @all.find {|line| line[:name].downcase  == standard_store_name}
-
+  def find_by_name(merchant_name_inputed)
+    standard_merchant_name = merchant_name_inputed.downcase.gsub(" ", "")
+    merchant_info = @all.find {|line| line[:name].downcase  == standard_merchant_name}
     merchant_info.nil? ? merchant = nil : merchant = Merchant.new(merchant_info)
     merchant
   end
 
   def find_all_by_name
-
+    
   end
-end
-
-if __FILE__ == $PROGRAM_NAME
-mr = MerchantRepository.new
-mr.load_data
-x = mr.find_by_name
-binding.pry
 end

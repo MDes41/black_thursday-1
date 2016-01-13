@@ -41,6 +41,15 @@ class MerchantRepositoryTest < Minitest::Test
     assert_kind_of(Array, mr.all)
   end
 
+  def test_that_the_all_method_returns_the_three_sample_merchant_stores_info
+    se = SalesEngine.from_csv({
+                              :merchants => "./data/merchant_sample.csv",
+                              })
+    mr = se.merchants
+
+    assert_equal 3, mr.all.count
+  end
+
   def test_that_find_by_name_method_is_an_instance_of_merchant
     se = SalesEngine.from_csv({
                               :merchants => "./data/merchant_sample.csv",
@@ -93,6 +102,50 @@ class MerchantRepositoryTest < Minitest::Test
     merchant = mr.find_by_name("Turing School")
 
     assert_equal nil, merchant
+  end
+
+  def test_that_find_by_id_returns_known_id
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    mr = se.merchants
+    merchant = mr.find_by_id(12334105)
+
+    assert_equal "12334105", merchant.id
+  end
+
+  def test_that_find_by_id_returns_nil_for_unknown_id
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    mr = se.merchants
+    merchant = mr.find_by_id(000023412)
+
+    assert_equal nil, merchant
+  end
+
+  def test_that_find_by_id_with_input_as_a_string_works
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    mr = se.merchants
+    merchant = mr.find_by_id("12334105")
+
+    assert_equal "12334105", merchant.id
+  end
+
+  def test_edge_that_even_when_searching_for_correct_id_with_spaces_it_will_still_return
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv"
+                              })
+    mr = se.merchants
+    merchant = mr.find_by_id("12334 105")
+
+    assert_equal "12334105", merchant.id
   end
 
 end
