@@ -66,10 +66,10 @@ class ItemRepositoryTest < Minitest::Test
 
     ir   = se.items
 
+    #let the test run at first to fail to get the correct number
+    #since it's too long to count manually
     assert_equal 0, ir.all.count
   end
-
-  
 
   def test_that_it_will_return_an_instance_of_an_item
     skip
@@ -84,6 +84,40 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, item.class
   end
 
+  def test_that_find_by_id_returns_known_item
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
 
+    ir   = se.items
+    #//FROM ITEM.CSV FILE//
+    #//HEADERS//
+    #id,name,description,unit_price,merchant_id,created_at,updated_at
+    #//ITEM LINE//
+    #
+    item = ir.find_by_id(263395237)
+
+    assert_equal "263395237", item.id
+  end
+
+  def test_edge_that_find_by_id_returns_nil_for_unknown_id
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir   = se.items
+    #//FROM ITEM.CSV FILE//
+    #//HEADERS//
+    #id,name,description,unit_price,merchant_id,created_at,updated_at
+    #//ITEM LINE//
+    #
+    item = ir.find_by_id(000000000)
+
+    assert_equal nil, item
+  end
 
 end
