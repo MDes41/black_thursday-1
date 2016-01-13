@@ -407,7 +407,7 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv"
     })
     ir    = se.items
-    price = ir.find_all_by_merchant_id(000000)
+    price = ir.find_all_by_merchant_id(00000)
     #given the supplied fragment of an id it should output matches
     assert_equal [], price
   end
