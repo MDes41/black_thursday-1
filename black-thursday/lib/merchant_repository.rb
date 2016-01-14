@@ -1,18 +1,13 @@
 require_relative 'merchant'
 require          'csv'
 require          'pry'
-require_relative 'sales_engine'
-require_relative 'load_data'
+
 
 class MerchantRepository
+  attr_reader :all
 
-  attr_reader :all, :data
-  include LoadData
-
-  def initialize(data)
-    @data = data
-    @all = []
-    load_data(data)
+  def initialize(all)
+    @all = all
   end
 
   def find_by_id(merchant_id_inputed)
@@ -41,13 +36,3 @@ class MerchantRepository
     end
   end
 end
-
-# se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-
-mr = se.merchants
-merchant = mr.find_by_name("CJsDecor")

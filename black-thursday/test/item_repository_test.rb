@@ -245,7 +245,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
+      items: "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
 
@@ -260,7 +260,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method_v2
-    skip 'This is where we want to be'
+    # skip 'This is where we want to be'
     ir = SalesEngine.new(
       items: [
         {id: 1, description: "abc"},

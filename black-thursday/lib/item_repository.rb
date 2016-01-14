@@ -1,17 +1,12 @@
 require          'csv'
 require          'pry'
-require_relative 'sales_engine'
 require_relative 'item'
-require_relative 'load_data'
 
 class ItemRepository
-  attr_reader :all, :data
-  include LoadData
+  attr_reader :all
 
-  def initialize(data)
-    @data = data
-    @all = []
-    load_data(data)
+  def initialize(all)
+    @all = all
   end
 
   def stdrd(item_name_inputed)
