@@ -1,7 +1,7 @@
 require 'pry'
 
 class Item
-  attr_reader :name, :id
+  attr_reader :name, :id, :description, :unit_price, :created_at, :updated_at
 
   #BigDecimal significant figures should == row[:unit_price].size
   #that way it will know what to expect for the length of figures
@@ -15,5 +15,9 @@ class Item
   def initialize(item_info)
     @name = item_info[:name]
     @id = item_info[:id]
+    @description = item_info[:description]
+    @unit_price = item_info[:unit_price]
+    @created_at = item_info[:created_at]
+    @updated_at = item_info[:updated_at]
   end
 end

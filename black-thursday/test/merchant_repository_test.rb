@@ -28,10 +28,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert MerchantRepository.method_defined? :find_all_by_name
   end
 
-  def test_that_load_data_method_exist
-    assert MerchantRepository.method_defined? :load_data
-  end
-
   def test_that_all_method_returns_an_array
     se = SalesEngine.from_csv({
                               :merchants => "./data/merchant_sample.csv",
